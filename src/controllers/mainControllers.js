@@ -12,7 +12,10 @@ const getDroneConfig = (req,res) =>{
     const idToFind = req.params.droneId;
     console.log(`finding drone id = ${idToFind}`);
     const message = droneConfigs.find(drone => drone.drone_id == idToFind);
-    res.send(message);
+    
+    const { condition, population, ...newObject } = message;
+    
+    res.send(newObject);
 };
 
 
