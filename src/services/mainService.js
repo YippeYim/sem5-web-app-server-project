@@ -1,6 +1,6 @@
 import PocketBase from 'pocketbase';
-import { loadEnvFile } from 'node:process';
-loadEnvFile('./src/.env')
+// import { loadEnvFile } from 'node:process';
+// loadEnvFile('./src/.env')
 const DRONE_ID = process.env.DRONE_ID;
 const API_TOKEN = process.env.API_TOKEN;
 const URL_SERVER1 = process.env.URL_SERVER1;
