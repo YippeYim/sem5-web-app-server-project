@@ -17,8 +17,9 @@ const getDroneConfigs = async ()=>{
     }
 
     const result = await response.json();
-    // console.log(result.data);
-    return result;
+    console.log("drone config sample:");
+    console.log(result.data[0]);
+    return result.data;
   } catch (error) {
     console.error(error.message);
   }
