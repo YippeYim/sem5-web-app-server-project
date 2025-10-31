@@ -1,0 +1,59 @@
+import PocketBase from 'pocketbase';
+import { loadEnvFile } from 'node:process';
+loadEnvFile('./src/.env')
+const DRONE_ID = process.env.DRONE_ID;
+const API_TOKEN = process.env.API_TOKEN;
+const URL_SERVER1 = process.env.URL_SERVER1;
+const URL_SERVER2 = process.env.URL_SERVER2;
+
+const pb = new PocketBase(URL_SERVER2);
+pb.authStore.save(API_TOKEN, null);
+
+const getDroneConfigs = async ()=>{
+  try {
+    const response = await fetch(URL_SERVER1);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    // console.log(result.data);
+    return result;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+const getDroneLogsById = async (droneId=3001)=>{
+    try {
+        const resultList = await pb.collection('drone_logs').getList(1, 5, {
+            filter: `drone_id=${droneId}`,
+            sort: '-created',
+        });
+
+        console.log('--- PocketBase Records List ---');
+        console.log(`Token used: ${API_TOKEN}`);
+        console.log(`Total items found: ${resultList.totalItems}`);
+        console.log('First record:');
+        console.log(resultList.items[0]);
+
+        return resultList;
+
+    } catch (error) {
+        console.error('An error occurred during PocketBase fetch:', error);
+    }
+};
+
+// const logs = await getDroneLogsById(65011104);
+// console.log(logs);
+
+export default {
+    getDroneConfigs,
+    getDroneLogsById,
+}
+
+// const droneConfigs = await getDroneConfigs();
+// const droneConfig = droneConfigs.data.find( drone => drone.drone_id == DRONE_ID);
+
+// console.log(droneConfig);
+
