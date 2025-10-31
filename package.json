@@ -5,14 +5,15 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "starto": "node server.js",
-    "dev": "nodemon server.js"
+    "starto": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "author": "Piya Yimpradit",
   "license": "ISC",
   "type": "module",
   "dependencies": {
     "dotenv": "^17.2.3",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "pocketbase": "^0.26.3"
   }
 }
