@@ -18,8 +18,20 @@ const getDroneConfig = (req,res) =>{
     res.send(newObject);
 };
 
+const getDroneStatus = (req, res) =>{
+    console.log('someone GET drone ID');
+    const idToFind = req.params.droneId;
+    console.log(`finding drone id = ${idToFind}`);
+    const message = droneConfigs.find(drone => drone.drone_id == idToFind);
+    
+    const { condition } = message;
+    
+    res.send(condition);
+};
+
 
 export default {
     getHome,
     getDroneConfig,
+    getDroneStatus,
 }
