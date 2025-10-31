@@ -1,5 +1,5 @@
 import services from '../services/mainService.js';
-const droneConfigs = await services.getDroneConfigs();
+// const droneConfigs = await services.getDroneConfigs();
 // console.log(droneConfigs);
 
 const getHome = (req, res) => {
@@ -46,9 +46,20 @@ const getDroneLogs = async (req, res) =>{
     res.send(cleanedArray);
 };
 
+const postLogs = (req, res)=>{
+    // console.log(req.query);
+    const query = req.query;
+    query.celsius = parseInt(query.celsius,10);
+
+    const result = services.createRecord(query);
+    res.send(result);
+};
+
+
 export default {
     getHome,
     getDroneConfig,
     getDroneStatus,
     getDroneLogs,
+    postLogs,
 }

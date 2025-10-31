@@ -7,7 +7,8 @@ const URL_SERVER1 = process.env.URL_SERVER1;
 const URL_SERVER2 = process.env.URL_SERVER2;
 
 const pb = new PocketBase(URL_SERVER2);
-pb.authStore.save(API_TOKEN, null);
+// pb.authStore.save(API_TOKEN, null);
+pb.authStore.save(`Bearer ${API_TOKEN}`, null); // This sends Authorization: Bearer 20250901efx
 
 const getDroneConfigs = async ()=>{
   try {
@@ -45,12 +46,29 @@ const getDroneLogsById = async (droneId=3001)=>{
     }
 };
 
+const createRecord = async (message) => {
+    try{
+        const record = await pb.collection('drone_logs').create({
+            drone_id:message.drone_id,
+            drone_name:message.drone_name,
+            country:message.country,
+            celsius:message.celsius,
+        });
+
+        return "OK";
+    }catch(e){
+        console.error(e); 
+        return "error";
+    }
+};
+
 // const logs = await getDroneLogsById(65011104);
 // console.log(logs);
 
 export default {
     getDroneConfigs,
     getDroneLogsById,
+    createRecord,
 }
 
 // const droneConfigs = await getDroneConfigs();

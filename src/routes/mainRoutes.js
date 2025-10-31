@@ -11,5 +11,7 @@ router.get('/status/:droneId', mainController.getDroneStatus)
 
 router.get('/log/:droneId', mainController.getDroneLogs)
 
+router.post('/logs', mainController.postLogs)
+
 
 export default router;
