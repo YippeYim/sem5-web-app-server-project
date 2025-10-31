@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors'; // <<< 1. นำเข้า CORS Middleware
 import routes from './routes/mainRoutes.js';
 dotenv.config();
 
