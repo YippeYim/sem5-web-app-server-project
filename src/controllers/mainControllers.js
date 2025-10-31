@@ -10,7 +10,7 @@ const getHome = (req, res) => {
 const getDroneConfig = (req,res) =>{
     console.log('someone GET drone ID');
     const idToFind = req.params.droneId;
-    console.log(`finding drone id = ${idToFind}`);
+    console.log(`--finding drone id = ${idToFind}`);
     const message = droneConfigs.find(drone => drone.drone_id == idToFind);
     
     const { condition, population, ...newObject } = message;
@@ -19,9 +19,9 @@ const getDroneConfig = (req,res) =>{
 };
 
 const getDroneStatus = (req, res) =>{
-    console.log('someone GET drone ID');
+    console.log('someone GET drone ID condition');
     const idToFind = req.params.droneId;
-    console.log(`finding drone id = ${idToFind}`);
+    console.log(`--finding drone id = ${idToFind}`);
     const message = droneConfigs.find(drone => drone.drone_id == idToFind);
     
     const { condition } = message;
@@ -29,9 +29,26 @@ const getDroneStatus = (req, res) =>{
     res.send(condition);
 };
 
+const getDroneLogs = async (req, res) =>{
+    console.log('someone GET drone log');
+    const idToFind = req.params.droneId;
+    console.log(`--finding drone id = ${idToFind}`);
+    const message = await services.getDroneLogsById(idToFind);
+
+    const cleanedArray = message.items.map(obj => {
+    // ดึง 'celsius' ออกไป (ซึ่งจะถูกละทิ้ง)
+      // และเก็บส่วนที่เหลือทั้งหมดไว้ในตัวแปร 'restOfObject'
+      const { collectionId, collectionName, id, updated, ...restOfObject } = obj; 
+  
+      return restOfObject;
+    });
+
+    res.send(cleanedArray);
+};
 
 export default {
     getHome,
     getDroneConfig,
     getDroneStatus,
+    getDroneLogs,
 }

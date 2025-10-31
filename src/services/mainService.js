@@ -27,14 +27,14 @@ const getDroneConfigs = async ()=>{
 
 const getDroneLogsById = async (droneId=3001)=>{
     try {
-        const resultList = await pb.collection('drone_logs').getList(1, 5, {
+        const resultList = await pb.collection('drone_logs').getList(1, 12, {
             filter: `drone_id=${droneId}`,
             sort: '-created',
         });
 
         console.log('--- PocketBase Records List ---');
         console.log(`Token used: ${API_TOKEN}`);
-        console.log(`Total items found: ${resultList.totalItems}`);
+        // console.log(`Total items found: ${resultList.totalItems}`);
         console.log('First record:');
         console.log(resultList.items[0]);
 

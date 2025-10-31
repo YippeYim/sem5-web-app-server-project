@@ -9,5 +9,7 @@ router.get('/config/:droneId', mainController.getDroneConfig)
 
 router.get('/status/:droneId', mainController.getDroneStatus)
 
+router.get('/log/:droneId', mainController.getDroneLogs)
+
 
 export default router;
