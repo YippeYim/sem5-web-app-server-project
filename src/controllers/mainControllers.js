@@ -1,5 +1,5 @@
 import services from '../services/mainService.js';
-// const droneConfigs = await services.getDroneConfigs();
+const droneConfigs = await services.getDroneConfigs();
 // console.log(droneConfigs);
 
 const getHome = (req, res) => {
